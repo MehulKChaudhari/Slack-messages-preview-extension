@@ -5,22 +5,21 @@ const USER_SCOPE_PERMISSIONS = [
   "users:read",
 ];
 
-const CLIENT_ID = "2558812784277.2555080820534";
-const CLIENT_SECRET = "9e5e0916a81f2c9a845587acfcb789f4";
-
 const slackUtils = {
   getOauthUrl: () => {
     const redirectUrl = chrome.identity.getRedirectURL();
     return `${SLACK_OAUTH_AUTHORIZE_URL}?user_scope=${USER_SCOPE_PERMISSIONS.join(
       ","
-    )}&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUrl)}`;
+    )}&client_id=${process.env.CLIENT_ID}&redirect_uri=${encodeURIComponent(
+      redirectUrl
+    )}`;
   },
   getOauthAccessUrl: (codeUrl) => {
     const redirectUrl = chrome.identity.getRedirectURL();
     const [, search] = codeUrl.split("?");
     const [codeStr] = search.split("&");
     const [, code] = codeStr.split("=");
-    const slackAccessUrl = `https://slack.com/api/oauth.v2.access?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&redirect_uri=${redirectUrl}&code=${code}`;
+    const slackAccessUrl = `https://slack.com/api/oauth.v2.access?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}&redirect_uri=${redirectUrl}&code=${code}`;
     return slackAccessUrl;
   },
 };

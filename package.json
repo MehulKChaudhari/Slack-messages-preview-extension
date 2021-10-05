@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/MehulKChaudhari/Slack-messages-preview-extension#readme",
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "netlify-lambda": "^2.0.14"
   },
   "dependencies": {
