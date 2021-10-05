@@ -48,6 +48,24 @@ chrome.runtime.onMessage.addListener((param, _, sendResponse) => {
           });
       }
     );
+    if (param.type === "getconvo") {
+      const url =
+        "http://localhost:9000/.netlify/functions/getSlackConversation";
+      const { cid, oldest, token } = param;
+      const fullUrl =
+        url +
+        "?token=" +
+        encodeURIComponent(token) +
+        "&cid=" +
+        encodeURIComponent(cid) +
+        "&oldest=" +
+        encodeURIComponent(oldest);
+      fetch(fullUrl)
+        .then((resp) => resp.json())
+        .then((conversation) => {
+          sendResponse(conversation);
+        });
+    }
   }
   return true;
 });
