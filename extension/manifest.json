@@ -6,5 +6,6 @@
   "action": {},
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "permissions": ["identity", "storage"]
 }
